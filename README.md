@@ -50,6 +50,6 @@ http://localhost:5000
 🛡️ Simulating real-world attack scenarios<br>
 📊 Logging and visualizing suspicious activities on a network<br>
 
-<br>
+
 ### 🙋 Author
 Ananya Shenoy
