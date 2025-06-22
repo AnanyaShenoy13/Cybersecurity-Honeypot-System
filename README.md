@@ -24,20 +24,6 @@ This project implements a real-time interactive honeypot designed to simulate vu
 
 ---
 
-## 📁 Folder Structure
-
-codes/
-├── templates/ # HTML templates (dashboard, login, logs)
-├── static/ # CSS and JavaScript files
-├── logs/ # Log files of attacks
-├── app.py # Main Flask application
-├── geolocate.py # IP geolocation logic
-├── helpers.py # Utility functions
-├── requirements.txt # Python dependencies
-└── ...
-
----
-
 ## ⚙️ Setup Instructions
 
 ### 1. Clone the repository
@@ -45,24 +31,25 @@ codes/
 git clone https://github.com/yourusername/Cybersecurity-Honeypot-System.git
 cd Cybersecurity-Honeypot-System
 
-2. Install dependencies
+### 2. Install dependencies
 
 pip install -r requirements.txt
 
-3. Run the application
+### 3. Run the application
 
 python app.py
 
-4. View in browser
+### 4. View in browser
 Open your browser and go to:
 
 http://localhost:5000
 
 🧪 Sample Use Cases
 
-✅ Educational environments for teaching cybersecurity
-🛡️ Simulating real-world attack scenarios
-📊 Logging and visualizing suspicious activities on a network
+✅ Educational environments for teaching cybersecurity<br>
+🛡️ Simulating real-world attack scenarios<br>
+📊 Logging and visualizing suspicious activities on a network<br>
 
-🙋 Author
+<br>
+### 🙋 Author
 Ananya Shenoy
