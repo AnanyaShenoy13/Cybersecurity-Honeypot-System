@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AthenaOfficial</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        .activity-log {
+            max-height: 200px;  /* Adjusted maximum height for scrollable box */
+            overflow-y: auto;   /* Enable vertical scrollbar */
+            border: 1px solid #ccc;  /* Optional: Add border for styling */
+            padding: 10px;      /* Optional: Add padding for better appearance */
+        }
+        .activity-item {
+            margin-bottom: 10px;  /* Optional: Add margin between activity items */
+        }
+        .navigation {
+            background-color: #f0f0f0;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .navigation a {
+            margin-right: 10px;
+            text-decoration: none;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Athena The Honeypot</h1>
+            <div class="navigation">
+                <a href="/">Home</a>
+                <a href="/logs">Logs</a>
+                <a href="/analytics">Analytics</a>
+                <a href="/settings">Settings</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="main">
+        <div class="container">
+            <h2>Hi! I am Athena, a robust cybersecurity website, always at your service.</h2>
+            <h3>Recent Activity</h3>
+            <div class="activity-log">
+                <!-- Recent activity logs will be dynamically added here -->
+                {% for activity in recent_activity %}
+                    <div class="activity-item">
+                        <p>{{ activity.timestamp }} - IP: {{ activity.ip_address }} - Type: {{ activity.attack_type }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+            <div id="geolocate-form" style="margin-top: 20px;">
+                <input type="text" id="ip-address" placeholder="Enter IP Address">
+                <button onclick="geolocateIP()">Geolocate</button>
+            </div>
+            <div id="geolocation-result" style="margin-top: 20px;"></div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; Athena The Honeypot</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js" integrity="sha512-lp58X2H58A+0FE8yP4L8IzHFSjrqlkW6Wo6iY/mZre9H9QD7W60FNZ9/0L5xXryQdpCFt13YwJsayv3AUFSHow==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="text/javascript">
+        var socket = io();
+        socket.on('update_activity', function(data) {
+            var activityLog = document.querySelector('.activity-log');
+            activityLog.innerHTML = '';  // Clear existing content
+            data.forEach(function(activity) {
+                var activityItem = document.createElement('div');
+                activityItem.classList.add('activity-item');
+                activityItem.innerHTML = '<p>' + activity.timestamp + ' - IP: ' + activity.ip_address + ' - Type: ' + activity.attack_type + '</p>';
+                activityLog.appendChild(activityItem);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+Flask
+Flask-SQLAlchemy
+Flask-Mail
+flask-socketio
+eventlet
+FPDF

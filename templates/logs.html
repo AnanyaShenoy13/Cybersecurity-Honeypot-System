@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logs - AthenaOfficial</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .scrollable-table {
+            max-height: 200px; /* Adjusted to 200px */
+            overflow-y: auto;
+            margin-top: 20px; /* Added margin for spacing */
+        }
+        table {
+            width: calc(100% - 20px); /* Adjusted width to fit within container */
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .navigation {
+            background-color: #f0f0f0;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .navigation a {
+            margin-right: 10px;
+            text-decoration: none;
+            color: #333;
+        }
+        .download-btn {
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+        }
+        .download-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h2>Logs</h2>
+            <div class="navigation">
+                <a href="/">Home</a>
+                <a href="/logs">Logs</a>
+                <a href="/analytics">Analytics</a>
+                <a href="/settings">Settings</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="main">
+        <div class="container">
+            <button class="download-btn" onclick="window.location.href='/download_logs'">Download Logs as PDF</button>
+            <h2>Attack Logs - Additional Logs</h2>
+            <div class="scrollable-table">
+                <table id="additionalLogsTable">
+                    <thead>
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>IP Address</th>
+                            <th>Type of Attack</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for log in additional_logs %}
+                        <tr>
+                            <td>{{ log.timestamp }}</td>
+                            <td>{{ log.ip_address }}</td>
+                            <td>{{ log.attack_type }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; Athena The Honeypot</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

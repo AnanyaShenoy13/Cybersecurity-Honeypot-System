@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - AthenaOfficial</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        /* CSS styles for navigation, form container, and button */
+        .navigation {
+            background-color: #f0f0f0;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .navigation a {
+            margin-right: 10px;
+            text-decoration: none;
+            color: #333;
+        }
+        .form-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-container label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        .form-container input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        .form-container button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .form-container button:hover {
+            background-color: #0056b3;
+        }
+        /* Additional styles for the About section */
+        #about {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #about h2 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        #about p {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Settings</h1>
+            <div class="navigation">
+                <a href="/">Home</a>
+                <a href="/logs">Logs</a>
+                <a href="/analytics">Analytics</a>
+                <a href="/settings">Settings</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="main">
+        <div class="container">
+            <div class="form-container">
+                <h2>Settings</h2>
+                <form>
+                    <label for="alertToggle">Enable Alerts:</label>
+                    <input type="checkbox" id="alertToggle" onchange="toggleAlerts(this.checked)">
+                </form>
+            </div>
+
+            <!-- About section -->
+            <section id="about">
+                <section id="about">
+                    <div class="container">
+                        <h2>About Athena</h2>
+                        <p>Hi! I am Athena, a robust cybersecurity tool designed to monitor and analyze malicious activities in real-time. Our dashboard provides comprehensive insights into attempted attacks, allowing security professionals to detect, analyze, and respond to threats effectively.</p>
+                        <p>Key Features:</p>
+                        <ul>
+                            <li><strong>Real-Time Monitoring:</strong> Instantly track and visualize incoming attacks, including their origin and type.</li>
+                            <li><strong>Alert System:</strong> Receive notifications and alerts for suspicious activities, enabling swift response and mitigation.</li>
+                            <li><strong>Analytics:</strong> Gain deep insights with detailed analytics and visualizations, helping to identify trends and patterns in attack behaviors.</li>
+                            <li><strong>Settings:</strong> Customize alert preferences and dashboard configurations to suit specific security needs.</li>
+                        </ul>
+                        <p>Powered by advanced technologies, Athena is your proactive defense against cyber threats, ensuring your systems remain secure and resilient.</p>
+                    </div>
+                </section>
+                
+            </section>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; Athena The Honeypot</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js" integrity="sha512-lp58X2H58A+0FE8yP4L8IzHFSjrqlkW6Wo6iY/mZre9H9QD7W60FNZ9/0L5xXryQdpCFt13YwJsayv3AUFSHow==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        function toggleAlerts(enable) {
+            if (enable) {
+                logAlertsToFile();
+                alert('Alerts enabled!');
+            } else {
+                alert('Alerts disabled.');
+            }
+        }
+
+        function logAlertsToFile() {
+            fetch('/api/log_alerts_to_file')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to log alerts to file');
+                    }
+                })
+                .catch(error => console.error('Error logging alerts:', error));
+        }
+    </script>
+</body>
+</html>

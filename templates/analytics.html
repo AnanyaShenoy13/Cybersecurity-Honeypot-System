@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics - AthenaOfficial</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        .chart-container {
+            width: 100%;
+            max-width: 500px;
+            margin: auto;
+        }
+        .chart {
+            margin: 20px 0;
+        }
+        .navigation {
+            background-color: #f0f0f0;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .navigation a {
+            margin-right: 10px;
+            text-decoration: none;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Analytics</h1>
+            <div class="navigation">
+                <a href="/">Home</a>
+                <a href="/logs">Logs</a>
+                <a href="/analytics">Analytics</a>
+                <a href="/settings">Settings</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="main">
+        <div class="container">
+            <h2>Attack Analytics</h2>
+            <div class="chart-container">
+                <canvas id="attackFrequencyChart" class="chart"></canvas>
+                <canvas id="attackTrendChart" class="chart"></canvas>
+                <canvas id="attackGeoChart" class="chart"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; Athena The Honeypot</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        async function fetchData(url) {
+            const response = await fetch(url);
+            return response.json();
+        }
+
+        async function renderCharts() {
+            const frequencyData = await fetchData('/api/attack_frequency');
+            const trendData = await fetchData('/api/attack_trend');
+            const geoData = await fetchData('/api/attack_geo');
+
+            const ctxFrequency = document.getElementById('attackFrequencyChart').getContext('2d');
+            const ctxTrend = document.getElementById('attackTrendChart').getContext('2d');
+            const ctxGeo = document.getElementById('attackGeoChart').getContext('2d');
+
+            new Chart(ctxFrequency, {
+                type: 'bar',
+                data: frequencyData,
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            new Chart(ctxTrend, {
+                type: 'line',
+                data: trendData,
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            new Chart(ctxGeo, {
+                type: 'pie',
+                data: geoData,
+            });
+        }
+
+        window.onload = renderCharts;
+    </script>
+</body>
+</html>

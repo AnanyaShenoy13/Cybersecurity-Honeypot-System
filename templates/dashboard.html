@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - AthenaOfficial</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            background-image: url("{{ url_for('static', filename='image1.jpg') }}");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Dashboard</h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/dashboard">Dashboard</a></li>
+                    <li><a href="/logs">Logs</a></li>
+                    <li><a href="/analytics">Analytics</a></li>
+                    <li><a href="/settings">Settings</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="main">
+        <div class="container">
+            <h2>Real-Time Analytics</h2>
+            <div id="analytics">
+                {% if analytics_data %}
+                    <p>Total Attacks: {{ analytics_data.total_attacks }}</p>
+                    <p>SQL Injection: {{ analytics_data.attacks_by_type['SQL Injection'] }}</p>
+                    <p>XSS: {{ analytics_data.attacks_by_type['XSS'] }}</p>
+                    <p>Brute Force: {{ analytics_data.attacks_by_type['Brute Force'] }}</p>
+                {% else %}
+                    <p>Loading...</p>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; Athena The Honeypot</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
